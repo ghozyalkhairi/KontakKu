@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KontakKu</title>
+  <link rel="stylesheet" href="style/kontakku.css" type="text/css">
+  <script src="javascript/kontakku.js" defer></script>
+  <script src="https://kit.fontawesome.com/7b25fbaf33.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="grid">
+      <nav class="childbar">
+        <a class="linktambah" href="#"><i class="fas fa-user-plus fa-lg"></i></a>
+        <a class="linkcari" href="#"><i class="fas fa-search fa-lg"></i></a>
+        <a class="linkdaftar" href="#"><i class="fas fa-address-book fa-lg"></i></a>
+      </nav>
+      <section class="intro childcontent">
+        <h2>Selamat Datang di KontakKu</h2>
+        <button class="tombolmasuk">Masuk</button>
+      </section>
+      <section class="tambahkontak childcontent">
+        <h2>Tambah Kontak</h2>
+        <input type="text" class="tambahnama" placeholder="Masukkan nama kontak" required>
+        <input type="tel" class="tambahnomor" maxlength="12" placeholder="Masukkan nomor kontak" required>
+        <button class="tomboltambah">Tambah</button>
+      </section>
+      <section class="carikontak childcontent">
+        <h2>Cari Kontak</h2>
+        <input type="text" class="cari" placeholder="Masukkan nama kontak" required>
+        <button class="tombolcari">Cari</button>
+      </section>
+      <section class="daftarkontak childcontent">
+        <h2>Daftar Kontak</h2>
+        <div class="listkontak">
+        </div>
+        <p class="ket">Saat ini anda memiliki <span class="jumlah"></span> kontak</p>
+        <button class="kosongkan">Reset</button>
+      </section>
+    </div>
+  </div>
+</body>
+
+</html>
