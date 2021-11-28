@@ -24,6 +24,8 @@ const daftarKontak = [];
 
 const keterangan = document.createElement("p");
 
+let namaSama = false;
+
 navMenu.style.display = "none";
 hasilNama.style.fontStyle = "italic";
 jumlahKontak.textContent = daftarKontak.length;
@@ -98,20 +100,49 @@ tambahButton.addEventListener("click", function () {
       tambahNomor.focus();
       break;
     default:
-      let namaBaru = tambahNama.value;
-      let nomorBaru = tambahNomor.value;
-      let kontakBaru = { nama: namaBaru, nomor: nomorBaru };
-      daftarKontak.push(kontakBaru);
-      tambahNama.value = "";
-      tambahNomor.value = "";
-      tambahNama.focus();
-      autoKontak();
-      hasilNama.textContent = "Kontak berhasil ditambah";
-      hasilNama.style.color = "rgb(58, 58, 58)";
-      hasilNama.style.fontWeight = "normal";
-      tambahArea.appendChild(hasilNama);
+      let checkNama = tambahNama.value.toLowerCase();
+      checkIfSama(checkNama);
+      if (namaSama === true) {
+        hasilNama.textContent = "Gagal, nama kontak itu sudah ada!";
+        hasilNama.style.color = "red";
+        hasilNama.style.fontWeight = "bold";
+        tambahArea.appendChild(hasilNama);
+        tambahNama.value = "";
+        tambahNomor.value = "";
+        tambahNama.focus();
+      } else {
+        let namaBaru = tambahNama.value;
+        let nomorBaru = tambahNomor.value;
+        let kontakBaru = { nama: namaBaru, nomor: nomorBaru };
+        daftarKontak.push(kontakBaru);
+        tambahNama.value = "";
+        tambahNomor.value = "";
+        tambahNama.focus();
+        autoKontak();
+        hasilNama.textContent = "Kontak berhasil ditambah";
+        hasilNama.style.color = "rgb(58, 58, 58)";
+        hasilNama.style.fontWeight = "normal";
+        tambahArea.appendChild(hasilNama);
+      }
+      console.log(namaSama);
   }
 });
+
+function checkIfSama(namaInput) {
+  for (let i = 0; i < daftarKontak.length; i++) {
+    if (namaInput == daftarKontak[i].nama.toLowerCase()) {
+      hasilNama.textContent = "Gagal, Input nama kosong!";
+      hasilNama.style.color = "red";
+      hasilNama.style.fontWeight = "bold";
+      tambahArea.appendChild(hasilNama);
+      tambahNama.focus();
+      namaSama = true;
+      break;
+    } else {
+      namaSama = false;
+    }
+  }
+}
 
 cariButton.addEventListener("click", function () {
   switch (true) {
