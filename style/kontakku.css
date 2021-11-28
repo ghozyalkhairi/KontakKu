@@ -104,7 +104,10 @@ nav a {
 .ket {
   font-style: italic;
 }
-
+.warning {
+  color: red;
+  font-weight: bold;
+}
 @media only screen and (max-width: 960px) {
   body {
     font-size: 1.6em;

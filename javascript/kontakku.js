@@ -87,15 +87,13 @@ tambahButton.addEventListener("click", function () {
   switch (true) {
     case tambahNama.value === "":
       hasilNama.textContent = "Gagal, Input nama kosong!";
-      hasilNama.style.color = "red";
-      hasilNama.style.fontWeight = "bold";
+      hasilNama.classList.add("warning");
       tambahArea.appendChild(hasilNama);
       tambahNama.focus();
       break;
     case tambahNomor.value === "":
       hasilNama.textContent = "Gagal, Input nomor kosong!";
-      hasilNama.style.color = "red";
-      hasilNama.style.fontWeight = "bold";
+      hasilNama.classList.add("warning");
       tambahArea.appendChild(hasilNama);
       tambahNomor.focus();
       break;
@@ -105,8 +103,7 @@ tambahButton.addEventListener("click", function () {
       checkIfSama(checkNama);
       if (namaSama === true) {
         hasilNama.textContent = "Gagal, nama kontak itu sudah ada!";
-        hasilNama.style.color = "red";
-        hasilNama.style.fontWeight = "bold";
+        hasilNama.classList.add("warning");
         tambahArea.appendChild(hasilNama);
         tambahNama.value = "";
         tambahNomor.value = "";
@@ -121,8 +118,7 @@ tambahButton.addEventListener("click", function () {
         tambahNama.focus();
         autoKontak();
         hasilNama.textContent = "Kontak berhasil ditambah";
-        hasilNama.style.color = "rgb(58, 58, 58)";
-        hasilNama.style.fontWeight = "normal";
+        hasilNama.classList.remove("warning");
         tambahArea.appendChild(hasilNama);
       }
   }
@@ -130,12 +126,7 @@ tambahButton.addEventListener("click", function () {
 
 function checkIfSama(namaInput) {
   for (let i = 0; i < daftarKontak.length; i++) {
-    if (namaInput == daftarKontak[i].nama.toLowerCase()) {
-      hasilNama.textContent = "Gagal, Input nama kosong!";
-      hasilNama.style.color = "red";
-      hasilNama.style.fontWeight = "bold";
-      tambahArea.appendChild(hasilNama);
-      tambahNama.focus();
+    if (namaInput === daftarKontak[i].nama.toLowerCase()) {
       namaSama = true;
       break;
     } else {
@@ -148,8 +139,7 @@ cariButton.addEventListener("click", function () {
   switch (true) {
     case cariNama.value === "":
       hasilNama.textContent = "Gagal, Input nama kosong!";
-      hasilNama.style.color = "red";
-      hasilNama.style.fontWeight = "bold";
+      hasilNama.classList.add("warning");
       hasilArea.appendChild(hasilNama);
       break;
     default:
@@ -159,21 +149,18 @@ cariButton.addEventListener("click", function () {
       cariNama.focus();
       if (daftarKontak.length === 0) {
         hasilNama.textContent = "Kontak anda kosong!";
-        hasilNama.style.color = "red";
-        hasilNama.style.fontWeight = "bold";
+        hasilNama.classList.add("warning");
         hasilArea.appendChild(hasilNama);
       } else {
         for (let i = 0; i < daftarKontak.length; i++) {
           if (namaCari === daftarKontak[i].nama.toLowerCase()) {
             hasilNama.textContent = `Nomor ${daftarKontak[i].nama} adalah ${daftarKontak[i].nomor}`;
-            hasilNama.style.color = "rgb(58, 58, 58)";
-            hasilNama.style.fontWeight = "normal";
+            hasilNama.classList.remove("warning");
             hasilArea.appendChild(hasilNama);
             break;
           } else {
             hasilNama.textContent = "Kontak tidak ditemukan";
-            hasilNama.style.color = "red";
-            hasilNama.style.fontWeight = "bold";
+            hasilNama.classList.add("warning");
             hasilArea.appendChild(hasilNama);
           }
         }
