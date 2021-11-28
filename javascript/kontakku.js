@@ -24,7 +24,7 @@ const daftarKontak = [];
 
 const keterangan = document.createElement("p");
 
-let namaSama = false;
+let namaSama;
 
 navMenu.style.display = "none";
 hasilNama.style.fontStyle = "italic";
@@ -100,6 +100,7 @@ tambahButton.addEventListener("click", function () {
       tambahNomor.focus();
       break;
     default:
+      namaSama = false;
       let checkNama = tambahNama.value.toLowerCase();
       checkIfSama(checkNama);
       if (namaSama === true) {
@@ -124,7 +125,6 @@ tambahButton.addEventListener("click", function () {
         hasilNama.style.fontWeight = "normal";
         tambahArea.appendChild(hasilNama);
       }
-      console.log(namaSama);
   }
 });
 
