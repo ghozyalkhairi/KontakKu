@@ -1,5 +1,6 @@
 const cariNama = document.querySelector(".cari"),
-  tambahNama = document.querySelector(".tambahnama"),
+  tambahNama = document.querySelector(".tambahnamadepan"),
+  tambahBelakang = document.querySelector(".tambahbelakang"),
   tambahNomor = document.querySelector(".tambahnomor"),
   cariButton = document.querySelector(".tombolcari"),
   tambahButton = document.querySelector(".tomboltambah"),
@@ -25,6 +26,14 @@ const daftarKontak = [];
 const keterangan = document.createElement("p");
 
 let namaSama;
+
+function Kontak(namaDepan, namaBelakang, nomorHape) {
+  this.nama = {
+    namaDepan: namaDepan,
+    namaBelakang: namaBelakang,
+  };
+  this.nomorHape = nomorHape;
+}
 
 navMenu.style.display = "none";
 hasilNama.style.fontStyle = "italic";
@@ -85,7 +94,7 @@ navigasiDaftar.addEventListener("mouseout", function () {
 
 tambahButton.addEventListener("click", function () {
   switch (true) {
-    case tambahNama.value === "":
+    case tambahNama.value === "" || tambahBelakang.value === "":
       hasilNama.textContent = "Gagal, Input nama kosong!";
       hasilNama.classList.add("warning");
       tambahArea.appendChild(hasilNama);
@@ -99,21 +108,25 @@ tambahButton.addEventListener("click", function () {
       break;
     default:
       namaSama = false;
-      let checkNama = tambahNama.value.toLowerCase();
-      checkIfSama(checkNama);
+      let checkNamaDepan = tambahNama.value.toLowerCase();
+      checkIfSama(checkNamaDepan);
       if (namaSama === true) {
-        hasilNama.textContent = "Gagal, nama kontak itu sudah ada!";
+        hasilNama.textContent =
+          "Gagal, kontak dengan nama depan tersebut sudah ada!";
         hasilNama.classList.add("warning");
         tambahArea.appendChild(hasilNama);
         tambahNama.value = "";
+        tambahBelakang.value = "";
         tambahNomor.value = "";
         tambahNama.focus();
       } else {
         let namaBaru = tambahNama.value;
+        let namaBelakangBaru = tambahBelakang.value;
         let nomorBaru = tambahNomor.value;
-        let kontakBaru = { nama: namaBaru, nomor: nomorBaru };
+        let kontakBaru = new Kontak(namaBaru, namaBelakangBaru, nomorBaru);
         daftarKontak.push(kontakBaru);
         tambahNama.value = "";
+        tambahBelakang.value = "";
         tambahNomor.value = "";
         tambahNama.focus();
         autoKontak();
@@ -124,9 +137,9 @@ tambahButton.addEventListener("click", function () {
   }
 });
 
-function checkIfSama(namaInput) {
+function checkIfSama(namaDepanInput) {
   for (let i = 0; i < daftarKontak.length; i++) {
-    if (namaInput === daftarKontak[i].nama.toLowerCase()) {
+    if (namaDepanInput === daftarKontak[i].nama.namaDepan.toLowerCase()) {
       namaSama = true;
       break;
     } else {
@@ -153,8 +166,8 @@ cariButton.addEventListener("click", function () {
         hasilArea.appendChild(hasilNama);
       } else {
         for (let i = 0; i < daftarKontak.length; i++) {
-          if (namaCari === daftarKontak[i].nama.toLowerCase()) {
-            hasilNama.textContent = `Nomor ${daftarKontak[i].nama} adalah ${daftarKontak[i].nomor}`;
+          if (namaCari === daftarKontak[i].nama.namaDepan.toLowerCase()) {
+            hasilNama.textContent = `Nomor ${daftarKontak[i].nama.namaDepan} ${daftarKontak[i].nama.namaBelakang} adalah ${daftarKontak[i].nomorHape}`;
             hasilNama.classList.remove("warning");
             hasilArea.appendChild(hasilNama);
             break;
@@ -178,7 +191,7 @@ function autoKontak() {
   const listKontak = document.createElement("p");
   jumlahKontak.textContent = daftarKontak.length;
   for (let c = 0; c < daftarKontak.length; c++) {
-    listKontak.textContent = `${daftarKontak[c].nama}: ${daftarKontak[c].nomor}`;
+    listKontak.textContent = `${daftarKontak[c].nama.namaDepan} ${daftarKontak[c].nama.namaBelakang}: ${daftarKontak[c].nomorHape}`;
     kontakArea.appendChild(listKontak);
   }
 }
