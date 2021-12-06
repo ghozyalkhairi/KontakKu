@@ -26,13 +26,14 @@ const daftarKontak = [];
 const keterangan = document.createElement("p");
 
 let namaSama;
-
-function Kontak(namaDepan, namaBelakang, nomorHape) {
-  this.nama = {
-    namaDepan: namaDepan,
-    namaBelakang: namaBelakang,
-  };
-  this.nomorHape = nomorHape;
+class Kontak {
+  constructor(namaDepan, namaBelakang, nomorHape) {
+    this.nama = {
+      namaDepan: namaDepan,
+      namaBelakang: namaBelakang,
+    };
+    this.nomorHape = nomorHape;
+  }
 }
 
 navMenu.style.display = "none";
