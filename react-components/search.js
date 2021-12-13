@@ -1,5 +1,3 @@
-"use strict";
-
 const el = React.createElement;
 
 const searchInput = () => {
