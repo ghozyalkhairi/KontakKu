@@ -147,14 +147,13 @@ resetButton.addEventListener("click", () => {
 });
 
 function checkIfSama(namaDepanInput) {
-  for (let i = 0; i < daftarKontak.length; i++) {
-    if (namaDepanInput === daftarKontak[i].nama.namaDepan.toLowerCase()) {
+  daftarKontak.map((kontak) => {
+    if (namaDepanInput === kontak.nama.namaDepan.toLowerCase()) {
       namaSama = true;
-      break;
     } else {
       namaSama = false;
     }
-  }
+  });
 }
 
 function autoKontak() {
