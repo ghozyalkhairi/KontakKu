@@ -21,11 +21,13 @@ const navigasiTambah = document.querySelector(".linktambah"),
   navigasiCari = document.querySelector(".linkcari"),
   navigasiDaftar = document.querySelector(".linkdaftar");
 
-const daftarKontak = [];
+let daftarKontak = JSON.parse(localStorage.getItem("kontak") || "[]");
 
 const keterangan = document.createElement("p");
 
 let namaSama;
+
+autoKontak();
 class Kontak {
   constructor(namaDepan, namaBelakang, nomorHape) {
     this.nama = {
@@ -40,60 +42,60 @@ navMenu.style.display = "none";
 hasilNama.style.fontStyle = "italic";
 jumlahKontak.textContent = daftarKontak.length;
 
-introButton.addEventListener("click", function () {
+introButton.addEventListener("click", () => {
   introArea.style.display = "none";
   navMenu.style.display = "flex";
   tambahArea.style.display = "flex";
 });
 
-navigasiTambah.addEventListener("click", function () {
+navigasiTambah.addEventListener("click", () => {
   tambahArea.style.display = "flex";
   hasilArea.style.display = "none";
   sectionKontak.style.display = "none";
   hasilNama.remove();
 });
 
-navigasiTambah.addEventListener("mouseover", function () {
+navigasiTambah.addEventListener("mouseover", () => {
   keterangan.textContent = " Tambah";
   navigasiTambah.appendChild(keterangan);
 });
 
-navigasiTambah.addEventListener("mouseout", function () {
+navigasiTambah.addEventListener("mouseout", () => {
   navigasiTambah.removeChild(keterangan);
 });
 
-navigasiCari.addEventListener("click", function () {
+navigasiCari.addEventListener("click", () => {
   tambahArea.style.display = "none";
   hasilArea.style.display = "flex";
   sectionKontak.style.display = "none";
 });
 
-navigasiCari.addEventListener("mouseover", function () {
+navigasiCari.addEventListener("mouseover", () => {
   keterangan.textContent = " Cari";
   navigasiCari.appendChild(keterangan);
 });
 
-navigasiCari.addEventListener("mouseout", function () {
+navigasiCari.addEventListener("mouseout", () => {
   navigasiCari.removeChild(keterangan);
 });
 
-navigasiDaftar.addEventListener("click", function () {
+navigasiDaftar.addEventListener("click", () => {
   tambahArea.style.display = "none";
   hasilArea.style.display = "none";
   sectionKontak.style.display = "flex";
   hasilNama.remove();
 });
 
-navigasiDaftar.addEventListener("mouseover", function () {
+navigasiDaftar.addEventListener("mouseover", () => {
   keterangan.textContent = " Daftar";
   navigasiDaftar.appendChild(keterangan);
 });
 
-navigasiDaftar.addEventListener("mouseout", function () {
+navigasiDaftar.addEventListener("mouseout", () => {
   navigasiDaftar.removeChild(keterangan);
 });
 
-tambahButton.addEventListener("click", function () {
+tambahButton.addEventListener("click", () => {
   switch (true) {
     case tambahNama.value === "" || tambahBelakang.value === "":
       hasilNama.textContent = "Gagal, Input nama kosong!";
@@ -126,6 +128,7 @@ tambahButton.addEventListener("click", function () {
         let nomorBaru = tambahNomor.value;
         let kontakBaru = new Kontak(namaBaru, namaBelakangBaru, nomorBaru);
         daftarKontak.push(kontakBaru);
+        localStorage.setItem("kontak", JSON.stringify(daftarKontak));
         tambahNama.value = "";
         tambahBelakang.value = "";
         tambahNomor.value = "";
@@ -138,18 +141,7 @@ tambahButton.addEventListener("click", function () {
   }
 });
 
-function checkIfSama(namaDepanInput) {
-  for (let i = 0; i < daftarKontak.length; i++) {
-    if (namaDepanInput === daftarKontak[i].nama.namaDepan.toLowerCase()) {
-      namaSama = true;
-      break;
-    } else {
-      namaSama = false;
-    }
-  }
-}
-
-cariButton.addEventListener("click", function () {
+cariButton.addEventListener("click", () => {
   switch (true) {
     case cariNama.value === "":
       hasilNama.textContent = "Gagal, Input nama kosong!";
@@ -182,11 +174,23 @@ cariButton.addEventListener("click", function () {
   }
 });
 
-resetButton.addEventListener("click", function () {
+resetButton.addEventListener("click", () => {
   daftarKontak.splice(0, daftarKontak.length);
   jumlahKontak.textContent = daftarKontak.length;
   kontakArea.innerHTML = "";
+  localStorage.removeItem("kontak");
 });
+
+function checkIfSama(namaDepanInput) {
+  for (let i = 0; i < daftarKontak.length; i++) {
+    if (namaDepanInput === daftarKontak[i].nama.namaDepan.toLowerCase()) {
+      namaSama = true;
+      break;
+    } else {
+      namaSama = false;
+    }
+  }
+}
 
 function autoKontak() {
   const listKontak = document.createElement("p");
