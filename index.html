@@ -7,8 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KontakKu</title>
   <link rel="stylesheet" href="style/kontakku.css" type="text/css">
-  <script src="javascript/kontakku.js" defer></script>
-  <script src="https://kit.fontawesome.com/7b25fbaf33.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -32,8 +30,7 @@
       </section>
       <section class="carikontak childcontent">
         <h2>Cari Kontak</h2>
-        <input type="text" class="cari" placeholder="Masukkan nama depan" required>
-        <button class="tombolcari">Cari</button>
+        <div class="react"></div>
       </section>
       <section class="daftarkontak childcontent">
         <h2>Daftar Kontak</h2>
@@ -44,6 +41,12 @@
       </section>
     </div>
   </div>
+  <script src="https://kit.fontawesome.com/7b25fbaf33.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="react-components/search.js" type="text/babel"></script>
+  <script src="javascript/kontakku.js"></script>
 </body>
 
 </html>

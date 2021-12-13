@@ -26,8 +26,6 @@ let daftarKontak = JSON.parse(localStorage.getItem("kontak") || "[]");
 const keterangan = document.createElement("p");
 
 let namaSama;
-
-autoKontak();
 class Kontak {
   constructor(namaDepan, namaBelakang, nomorHape) {
     this.nama = {
@@ -141,39 +139,6 @@ tambahButton.addEventListener("click", () => {
   }
 });
 
-cariButton.addEventListener("click", () => {
-  switch (true) {
-    case cariNama.value === "":
-      hasilNama.textContent = "Gagal, Input nama kosong!";
-      hasilNama.classList.add("warning");
-      hasilArea.appendChild(hasilNama);
-      break;
-    default:
-      hasilNama.remove();
-      let namaCari = cariNama.value.toLowerCase();
-      cariNama.value = "";
-      cariNama.focus();
-      if (daftarKontak.length === 0) {
-        hasilNama.textContent = "Kontak anda kosong!";
-        hasilNama.classList.add("warning");
-        hasilArea.appendChild(hasilNama);
-      } else {
-        for (let i = 0; i < daftarKontak.length; i++) {
-          if (namaCari === daftarKontak[i].nama.namaDepan.toLowerCase()) {
-            hasilNama.textContent = `Nomor ${daftarKontak[i].nama.namaDepan} ${daftarKontak[i].nama.namaBelakang} adalah ${daftarKontak[i].nomorHape}`;
-            hasilNama.classList.remove("warning");
-            hasilArea.appendChild(hasilNama);
-            break;
-          } else {
-            hasilNama.textContent = "Kontak tidak ditemukan";
-            hasilNama.classList.add("warning");
-            hasilArea.appendChild(hasilNama);
-          }
-        }
-      }
-  }
-});
-
 resetButton.addEventListener("click", () => {
   daftarKontak.splice(0, daftarKontak.length);
   jumlahKontak.textContent = daftarKontak.length;
@@ -193,10 +158,13 @@ function checkIfSama(namaDepanInput) {
 }
 
 function autoKontak() {
-  const listKontak = document.createElement("p");
+  kontakArea.innerHTML = "";
   jumlahKontak.textContent = daftarKontak.length;
-  for (let c = 0; c < daftarKontak.length; c++) {
-    listKontak.textContent = `${daftarKontak[c].nama.namaDepan} ${daftarKontak[c].nama.namaBelakang}: ${daftarKontak[c].nomorHape}`;
+  daftarKontak.map((kontak) => {
+    const listKontak = document.createElement("p");
+    listKontak.textContent = `${kontak.nama.namaDepan} ${kontak.nama.namaBelakang}: ${kontak.nomorHape}`;
     kontakArea.appendChild(listKontak);
-  }
+  });
 }
+
+autoKontak();
